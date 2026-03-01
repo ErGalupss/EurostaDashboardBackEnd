@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "theme": {
+    "primary": "#6366f1",
+    "secondary": "#10b981",
+    "fontFamily": "Inter, sans-serif",
+    "borderRadius": "0.75rem"
+  },
+  "sidebar": [
+    {
+      "id": "dash",
+      "label": "Dashboard",
+      "icon": "LayoutDashboard",
+      "path": "/",
+      "permissions": ["view_dashboard"]
+    },
+    {
+      "id": "partners",
+      "label": "Partners",
+      "icon": "Users",
+      "path": "/partners",
+      "permissions": ["view_partners"]
+    },
+    {
+      "id": "admin",
+      "label": "Administration",
+      "icon": "Settings",
+      "children": [
+        {
+          "id": "ui-editor",
+          "label": "UI Editor",
+          "path": "/admin/ui",
+          "permissions": ["manage_ui"]
+        },
+        {
+          "id": "workflows",
+          "label": "Workflows",
+          "path": "/admin/workflows",
+          "permissions": ["manage_workflows"]
+        }
+      ]
+    }
+  ],
+  "modules": {
+    "analytics": { "enabled": true, "featureFlag": "enable_analytics" },
+    "crm": { "enabled": true },
+    "billing": { "enabled": false }
+  },
+  "pages": {
+    "/": {
+      "layout": "grid",
+      "blocks": [
+        {
+          "id": "kpi-row",
+          "type": "row",
+          "widgets": ["total-sales", "active-users", "conversion-rate"]
+        },
+        {
+          "id": "main-chart",
+          "type": "chart",
+          "config": { "type": "area", "dataSource": "/api/stats/trend" }
+        }
+      ]
+    }
+  },
+  "forms": {
+    "partner-create": {
+      "fields": [
+        { "name": "name", "label": "Name", "type": "text", "required": true },
+        { "name": "email", "label": "Email", "type": "email", "required": true },
+        { "name": "type", "label": "Type", "type": "select", "options": ["Gold", "Silver", "Bronze"] }
+      ]
+    }
+  }
+}
