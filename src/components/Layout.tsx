@@ -25,7 +25,8 @@ import {
   FileSignature,
   Calendar,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Server
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { useDashboard } from '../context/DashboardContext';
@@ -50,6 +51,23 @@ const SidebarItem = ({ to, icon: Icon, label, isCollapsed }: { to: string; icon:
     <Icon className="w-5 h-5 shrink-0" />
     {!isCollapsed && <span className="truncate">{label}</span>}
   </NavLink>
+);
+
+const SidebarExternalItem = ({ href, icon: Icon, label, isCollapsed }: { href: string; icon: any; label: string; isCollapsed: boolean }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className={cn(
+      "flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white",
+      isCollapsed && "justify-center px-2"
+    )}
+    title={isCollapsed ? label : undefined}
+  >
+    <Icon className="w-5 h-5 shrink-0" />
+    {!isCollapsed && <span className="truncate">{label}</span>}
+    {!isCollapsed && <span className="ml-auto text-xs opacity-50">↗</span>}
+  </a>
 );
 
 export default function Layout() {
@@ -248,6 +266,7 @@ export default function Layout() {
           <SidebarItem to="/guida-deploy" icon={BookOpen} label="Guida Deploy Frontend" isCollapsed={isCollapsed} />
           <SidebarItem to="/guida-backend" icon={BookOpen} label="Guida Deploy Backend" isCollapsed={isCollapsed} />
           <SidebarItem to="/debug-backend" icon={Bug} label="Debug Backend" isCollapsed={isCollapsed} />
+          <SidebarExternalItem href="/docs" icon={Server} label="Backend API (Swagger)" isCollapsed={isCollapsed} />
           <SidebarItem to="/guida" icon={BookOpen} label="Guida Tecnica" isCollapsed={isCollapsed} />
         </nav>
         
